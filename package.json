@@ -7,12 +7,16 @@
     "dev-start": "nodemon ./bin/www",
     "test": "jest --forceExit --coverage ",
     "oneTest": "jest --forceExit --coverage -t"
-
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^24.9.0",
+    "shelljs": "^0.8.3",
+    "supertest": "^4.0.2"
   }
 }
