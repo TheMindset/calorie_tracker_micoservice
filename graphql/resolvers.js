@@ -17,6 +17,45 @@ class RecipeResolver {
     })
   }
 
+  static averageCalorie(foodType) {
+    return Recipe.findAll({
+      where: foodType,
+      attributes: [
+        'Recipe.foodType', 
+        [Sequelize.fn('avg',Sequelize.col('totalCalories')), 'average'],
+      ],
+      group: ['Recipe.foodType'],
+      raw: true
+    })
+  }
+
+  static sortAttributes(foodType, attribute) {
+    return Recipe.findAll({
+      where: foodType,      
+      order: [[attribute]]
+    })
+  }
+
+  static totalPrepTime(value) {
+    return Recipe.findAll({
+      where: {
+        preparationTime: {
+          [Op.eq]: Object.values(value)
+        }
+      }
+    })
+  }
+
+  static totalIngredients(value) {
+    return Recipe.findAll({
+      where: {
+        preparationTime: {
+          [Op.eq]: Object.values(value)
+        }
+      }
+    })
+  }
+
 }
 
 module.exports = RecipeResolver

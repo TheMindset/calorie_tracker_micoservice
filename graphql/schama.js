@@ -57,76 +57,35 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(averageCalorieQuery),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
-        return Recipe.findAll({
-          where: args,
-          attributes: [
-            'Recipe.foodType', 
-            [Sequelize.fn('avg',Sequelize.col('totalCalories')), 'average'],
-          ],
-          group: ['Recipe.foodType'],
-          raw: true
-        })
+        return RecipeResolver.averageCalorie(args)
       }
     },
     sortIngredient: {
       type: new GraphQLList(RecipeType),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
-        return Recipe.findAll({
-          where: args,      
-          order: [['numberOfIngredients']]
-        })
+        return RecipeResolver.sortAttributes(args, 'numberOfIngredients')
       }
     },
     sortPrepTime: {
       type: new GraphQLList(RecipeType),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
-        return Recipe.findAll({
-          where: args,      
-          order: [['preparationTime']]
-        })
+        return RecipeResolver.sortAttributes(args, 'preparationTime')
       }
     },
     totalIngredients: {
       type: new GraphQLList(RecipeType),
       args: {numberOfIngredients: {type: GraphQLInt}},
       resolve(parent, args) {
-        console.log(args.values)
-        return Recipe.findAll({
-         
-          where: {
-            numberOfIngredients: {
-              [Op.eq]: Object.values(args)
-            }
-          }
-        })
-      }
-    },
-    totalIngredients: {
-      type: new GraphQLList(RecipeType),
-      args: {numberOfIngredients: {type: GraphQLInt}},
-      resolve(parent, args) {
-        return Recipe.findAll({
-          where: {
-            numberOfIngredients: {
-              [Op.eq]: Object.values(args)
-            }
-          }
-        })
+        return RecipeResolver.totalIngredients(args)
       }
     },
     totalPrepTime: {
       type: new GraphQLList(RecipeType),
       args: {preparationTime: {type: GraphQLInt}},
       resolve(parent, args) {
-        return Recipe.findAll({
-          where: {
-            preparationTime: {
-              [Op.eq]: Object.values(args)
-            }
-          }
-        })
+        return RecipeResolver.totalPrepTime(args)
       }
     }
   }
