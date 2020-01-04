@@ -15,8 +15,10 @@ task('fetchData', {async: true }, (food) => {
     return response.json()
   })
   .then(foodData => {
+    const foodType = foodData.q
+
     foodData.hits.forEach(recipe => {
-      let serializeRecipe = new recipeSerializer.new(food, recipe)
+      let serializeRecipe = new recipeSerializer.new(foodType, recipe)
       let cleanRecipe = Recipe.build(serializeRecipe)
       cleanRecipe.save
     })
