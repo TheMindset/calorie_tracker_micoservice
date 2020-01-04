@@ -4,7 +4,9 @@ class recipeSerializer {
     this.name = recipe.label
     this.recipeLink = recipe.url
     this.numberOfIngredients = recipe.ingredients.length
-    this.totalCalories = Math.round(recipe.calories * 100) / 100
+    this.totalCalories = Math.round(recipe.calories)
     this.preparationTime = Math.round(recipe.totalTime)
   }
 }
+
+module.exports = recipeSerializer
