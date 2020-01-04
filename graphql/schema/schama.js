@@ -68,6 +68,27 @@ const RootQuery = new GraphQLObjectType({
         })
       }
     },
+    ingredientSearch: {
+      type: new GraphQLList(RecipeType),
+      args: {foodType: {type: GraphQLString}},
+      resolve(parent, args) {
+        return Recipe.findAll({
+          where: args,      
+          order: [['numberOfIngredients']]
+        })
+      }
+    },
+    prepTimSearch: {
+      type: new GraphQLList(RecipeType),
+      args: {foodType: {type: GraphQLString}},
+      resolve(parent, args) {
+        return Recipe.findAll({
+          where: args,      
+          order: [['preparationTime']]
+        })
+      }
+    }
+
   }
 })
 
