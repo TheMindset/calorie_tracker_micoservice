@@ -2,7 +2,8 @@ const graphql = require('graphql')
 const Op = require('sequelize').Op
 const Sequelize = require('sequelize')
 
-const Recipe = require('../../models').Recipe
+const Recipe = require('../models').Recipe
+const RecipeResolver = require('./resolvers')
 
 const {
   GraphQLObjectType,
@@ -43,15 +44,13 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(RecipeType),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
-        return Recipe.findAll({
-          where: args
-        })
+        return RecipeResolver.recipeSearch(args)
       }
     },
     getAllRecipes: {
       type: new GraphQLList(RecipeType),
       resolve(parent, args) {
-        return Recipe.findAll()
+        return RecipeResolver.getAllRecipes
       }
     },
     averageCalorie: {
