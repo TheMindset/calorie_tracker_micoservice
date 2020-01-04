@@ -10,7 +10,7 @@ jobs:
 
       - image: postgres:11.3
         environment:
-          POSTGRES_USER: calorie_tracker_microservice
+          POSTGRES_USER: gui-pc
           POSTGRES_DB: calorie_trcker_microservice_test
           POSTGRES_PASSWORD: ''
 
