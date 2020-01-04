@@ -10,7 +10,7 @@ const recipeSerializer = require('./serializers/recipe_serializer')
 desc('Seed database from Edaman API.')
 
 task('fetchData', {async: true }, (food) => {
-  fetch(`https://api.edamam.com/search?q=${food}&app_id=${process.env.EDAMAN_APP_ID}&app_key=${process.env.EDAMAN_APP_KEY}&from=0&to=5&time=1%2B`)
+  fetch(`https://api.edamam.com/search?q=${food}&app_id=${process.env.EDAMAN_APP_ID}&app_key=${process.env.EDAMAN_APP_KEY}&from=0&to=10&time=1%2B`)
   .then(response => {
     return response.json()
   })
