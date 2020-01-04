@@ -23,22 +23,22 @@ const RecipeType = new GraphQLObjectType({
     numberOfIngredients: {type: GraphQLInt},
     totalCalories: {type: GraphQLInt},
     preparationTime: {type: GraphQLInt}
-
   })
 })
 
-const averageCalorieCount = new GraphQLObjectType({
-  name: 'averageCalorieCount',
+const averageCalorieQuery = new GraphQLObjectType({
+  name: 'averageCalorie',
   fields: () => ({
     foodType: {type: GraphQLString},
-    average: {type: GraphQLFloat}
+    average: {type: GraphQLFloat},
+
   })
 })
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    getRecipe: {
+    recipeSearch: {
       type: new GraphQLList(RecipeType),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
@@ -53,8 +53,8 @@ const RootQuery = new GraphQLObjectType({
         return Recipe.findAll()
       }
     },
-    getAverageCalorieCount: {
-      type: new GraphQLList(averageCalorieCount),
+    averageCalorie: {
+      type: new GraphQLList(averageCalorieQuery),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
         return Recipe.findAll({
@@ -67,7 +67,7 @@ const RootQuery = new GraphQLObjectType({
           raw: true
         })
       }
-    }
+    },
   }
 })
 
