@@ -1,4 +1,5 @@
 const graphql = require('graphql')
+const Sequelize = require('sequelize')
 const Recipe = require('../../models').Recipe
 
 const {
@@ -7,7 +8,8 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLList,
-  GraphQLSchema
+  GraphQLSchema,
+  GraphQLFloat
 } = graphql
 
 
@@ -22,6 +24,14 @@ const RecipeType = new GraphQLObjectType({
     totalCalories: {type: GraphQLInt},
     preparationTime: {type: GraphQLInt}
 
+  })
+})
+
+const averageCalorieCount = new GraphQLObjectType({
+  name: 'averageCalorieCount',
+  fields: () => ({
+    foodType: {type: GraphQLString},
+    average: {type: GraphQLFloat}
   })
 })
 
@@ -41,6 +51,21 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(RecipeType),
       resolve(parent, args) {
         return Recipe.findAll()
+      }
+    },
+    getAverageCalorieCount: {
+      type: new GraphQLList(averageCalorieCount),
+      args: {foodType: {type: GraphQLString}},
+      resolve(parent, args) {
+        return Recipe.findAll({
+          where: args,
+          attributes: [
+            'Recipe.foodType', 
+            [Sequelize.fn('avg',Sequelize.col('totalCalories')), 'average'],
+          ],
+          group: ['Recipe.foodType'],
+          raw: true
+        })
       }
     }
   }
