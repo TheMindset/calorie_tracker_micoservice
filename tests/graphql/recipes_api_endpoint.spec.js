@@ -92,7 +92,7 @@ describe('Recipe api endpoint', () => {
 
   test('should return the total average calorie for a food type', () => {
     return request(app)
-    .get('/graphql?query={averageCalorie(foodType:"Chicken"){average}}')
+    .get('/graphql?query={averageCalories(foodType:"Chicken"){average}}')
     .then(response => {
       expect(response.statusCode).toBe(200)
 
@@ -100,5 +100,21 @@ describe('Recipe api endpoint', () => {
       expect(Object.keys(response.body.data.averageCalorie[0])).toContain('average')
     })
   })
+
+  test('should return all recipes whithin by a food type sorted by the number of ingredients', () => {
+    return request(app)
+    .get('/graphql?query={sortIngredients(foodType:"Chicken"){id,name,numberOfIngredients}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+
+      expect(response.body.data.sortIngredients.length).toBe(3)
+      expect(Object.keys(response.body.data.sortIngredients[0])).toContain('id')
+      expect(Object.keys(response.body.data.sortIngredients[0])).toContain('name')
+      expect(Object.keys(response.body.data.sortIngredients[0])).toContain('numberOfIngredients')
+
+      expect(response.body.data.sortIngredients[0].numberOfIngredients).toBe(7)
+    })
+  })
+
 
 })
