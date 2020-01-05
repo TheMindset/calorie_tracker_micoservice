@@ -96,8 +96,8 @@ describe('Recipe api endpoint', () => {
     .then(response => {
       expect(response.statusCode).toBe(200)
 
-      expect(response.body.data.averageCalorie.length).toBe(1)
-      expect(Object.keys(response.body.data.averageCalorie[0])).toContain('average')
+      expect(response.body.data.averageCalories.length).toBe(1)
+      expect(Object.keys(response.body.data.averageCalories[0])).toContain('average')
     })
   })
 
@@ -116,5 +116,18 @@ describe('Recipe api endpoint', () => {
     })
   })
 
+  test('should return all recipes whithin by a food type sorted by the preparation time', () => {
+    return request(app)
+    .get('/graphql?query={sortPrepTime(foodType:"Chicken"){id,name,preparationTime}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
 
+      expect(response.body.data.sortPrepTime.length).toBe(3)
+      expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('id')
+      expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('name')
+      expect(Object.keys(response.body.data.sortPrepTime[0])).toContain('preparationTime')
+
+      expect(response.body.data.sortPrepTime[0].preparationTime).toBe(10)
+    })
+  })
 })
