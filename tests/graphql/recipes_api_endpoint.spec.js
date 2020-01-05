@@ -76,7 +76,18 @@ describe('Recipe api endpoint', () => {
       expect(Object.keys(response.body.data.totalIngredients[0])).toContain('id')
       expect(Object.keys(response.body.data.totalIngredients[0])).toContain('name')
     })
-
   })
   
+  test('should return food by the preparation time', () => {
+    return request(app)
+    .get('/graphql?query={totalPrepTime(preparationTime:270){id,name}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+
+      expect(response.body.data.totalPrepTime.length).toBe(1)
+      expect(Object.keys(response.body.data.totalPrepTime[0])).toContain('id')
+      expect(Object.keys(response.body.data.totalPrepTime[0])).toContain('name')
+    })
+  })
+
 })
