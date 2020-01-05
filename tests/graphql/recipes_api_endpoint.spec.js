@@ -52,4 +52,17 @@ describe('Recipe api endpoint', () => {
       expect(Object.keys(response.body.data.getAllRecipes[0])).toContain('preparationTime')
     })
   })
+
+  test('should return recipes by food type', () => {
+    return request(app)
+    .get('/graphql?query={recipeSearch(foodType: "Chicken"){name,foodType}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+
+      expect(response.body.data.recipeSearch.length).toBe(3)
+      expect(Object.keys(response.body.data.recipeSearch[0])).toContain('name')
+      expect(Object.keys(response.body.data.recipeSearch[0])).toContain('foodType')
+    })
+  })
+
 })
