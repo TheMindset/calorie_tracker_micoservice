@@ -57,6 +57,7 @@ describe('Recipe api endpoint', () => {
     return request(app)
     .get('/graphql?query={recipeSearch(foodType: "Chicken"){name,foodType}}')
     .then(response => {
+      console.log(response.body)
       expect(response.statusCode).toBe(200)
 
       expect(response.body.data.recipeSearch.length).toBe(3)
@@ -65,4 +66,17 @@ describe('Recipe api endpoint', () => {
     })
   })
 
+  test('should return food by the number of ingredients', () => {
+    return request(app)
+    .get('/graphql?query={totalIngredients(numberOfIngredients:10){id,name}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+
+      expect(response.body.data.totalIngredients.length).toBe(1)
+      expect(Object.keys(response.body.data.totalIngredients[0])).toContain('id')
+      expect(Object.keys(response.body.data.totalIngredients[0])).toContain('name')
+    })
+
+  })
+  
 })
