@@ -451,7 +451,7 @@ In order to utilize it in this _Micro-service_ you will need:
 
 * Define your **application's `EDAMAN_APP_ID` within the `.env`.**
 
-* Define your **application's `EDAMAN_API_KEY` within the `.env`.**
+* Define your **application's `EDAMAN_APP_KEY` within the `.env`.**
 
 * Seed the database with this command:
 
