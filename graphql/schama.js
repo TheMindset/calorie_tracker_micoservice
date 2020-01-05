@@ -50,7 +50,7 @@ const RootQuery = new GraphQLObjectType({
     getAllRecipes: {
       type: new GraphQLList(RecipeType),
       resolve(parent, args) {
-        return RecipeResolver.getAllRecipes
+        return RecipeResolver.getAllRecipes()
       }
     },
     averageCalorie: {

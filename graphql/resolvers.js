@@ -6,9 +6,7 @@ const Recipe = require('../models').Recipe
 
 class RecipeResolver {
   static getAllRecipes() {
-    return Recipe.findAll({
-      where: args
-    })
+    return Recipe.findAll()
   }
 
   static recipeSearch(foodType) {
