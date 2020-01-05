@@ -53,14 +53,14 @@ const RootQuery = new GraphQLObjectType({
         return RecipeResolver.getAllRecipes()
       }
     },
-    averageCalorie: {
+    averageCalories: {
       type: new GraphQLList(averageCalorieQuery),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {
-        return RecipeResolver.averageCalorie(args)
+        return RecipeResolver.averageCalories(args)
       }
     },
-    sortIngredient: {
+    sortIngredients: {
       type: new GraphQLList(RecipeType),
       args: {foodType: {type: GraphQLString}},
       resolve(parent, args) {

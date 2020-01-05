@@ -15,7 +15,7 @@ class RecipeResolver {
     })
   }
 
-  static averageCalorie(foodType) {
+  static averageCalories(foodType) {
     return Recipe.findAll({
       where: foodType,
       attributes: [
