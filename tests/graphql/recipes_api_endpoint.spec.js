@@ -90,4 +90,15 @@ describe('Recipe api endpoint', () => {
     })
   })
 
+  test('should return the total average calorie for a food type', () => {
+    return request(app)
+    .get('/graphql?query={averageCalorie(foodType:"Chicken"){average}}')
+    .then(response => {
+      expect(response.statusCode).toBe(200)
+
+      expect(response.body.data.averageCalorie.length).toBe(1)
+      expect(Object.keys(response.body.data.averageCalorie[0])).toContain('average')
+    })
+  })
+
 })
