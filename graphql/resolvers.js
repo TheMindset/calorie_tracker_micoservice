@@ -47,7 +47,7 @@ class RecipeResolver {
   static totalIngredients(value) {
     return Recipe.findAll({
       where: {
-        preparationTime: {
+        numberOfIngredients: {
           [Op.eq]: Object.values(value)
         }
       }
