@@ -17,7 +17,6 @@ task('fetchData', {async: true }, (food) => {
     return response.json()
   })
   .then(foodData => {
-    console.log(foodData.hits[0])
     const foodType = foodData.q
 
     foodData.hits.forEach(recipeData => {
